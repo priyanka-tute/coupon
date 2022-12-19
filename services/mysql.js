@@ -3,55 +3,17 @@
 const mysql = require('mysql2');
 const Course = require('../models/course');
 const Student = require("../models/student");
-// const connection = mysql.createConnection({
-//   host: 'tutedude.com',
-//   user: 'tutedudeuser',
-//   password: 'Tutedude@694',
-//   database: 'tutedude_payment'
-// });
 
 const connection = mysql.createPool({
-  host: 'tutedude.com',
-  user: 'tutedudeuser',
-  password: 'Tutedude@694',
-  database: 'tutedude_payment'
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_USER_PASSWORD,
+  database: process.env.DB_NAME
 });
-
-// var db_config = {
-//     host: 'tutedude.com',
-//   user: 'tutedudeuser',
-//   password: 'Tutedude@694',
-//   database: 'tutedude_payment'
-//   };
-  
-//   var connection;
-  
-//   function handleDisconnect() {
-//     connection = mysql.createConnection(db_config); // Recreate the connection, since
-//                                                     // the old one cannot be reused.
-  
-//     connection.connect(function(err) {              // The server is either down
-//       if(err) {                                     // or restarting (takes a while sometimes).
-//         console.log('error when connecting to db:', err);
-//         setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
-//       }                                     // to avoid a hot loop, and to allow our node script to
-//     });                                     // process asynchronous requests in the meantime.
-//                                             // If you're also serving http, display a 503 error.
-//     connection.on('error', function(err) {
-//       console.log('db error', err);
-//       if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
-//         handleDisconnect();                         // lost due to either server restart, or a
-//       } else {                                      // connnection idle timeout (the wait_timeout
-//         throw err;                                  // server variable configures this)
-//       }
-//     });
-//   }
-  
-//   handleDisconnect();
 
 
 getOrAddStudentFromMysql = (email) => {
-    connection.connect();
+    // connection.connect();
     connection.query('SELECT * from user WHERE email = \''+email+"\';", async (err, rows, fields) => {
     if (err) throw err
 
@@ -121,7 +83,7 @@ getOrAddStudentFromMysql = (email) => {
 exports.getStudentFromMysql = (email) => {
     return new Promise((resolve,reject)=>{
     console.log("mysql email = ",email);
-    connection.connect();
+    // connection.connect();
     connection.query('SELECT * from paymentinfo WHERE email = \''+email+"\';",async (err, rows, fields) => {
     if (err){
         console.log(err);
@@ -167,7 +129,7 @@ exports.getStudentFromMysql = (email) => {
 exports.getStudentReferralsFromMysqlCoupon = (code) => {
     return new Promise((resolve,reject)=>{
         console.log("mysql coupon_code = ",code);
-        connection.connect();
+        // connection.connect();
         connection.query('SELECT * from paymentinfo WHERE coupon_code = \''+code+"\';",async (err, rows, fields) => {
         if (err){
             console.log(err);
@@ -201,7 +163,7 @@ exports.getStudentReferralsFromMysqlCoupon = (code) => {
 exports.applyCouponFromMysql = (coupon) =>{
     return new Promise((resolve,reject)=>{
         console.log("mysql coupon = ",coupon);
-        connection.connect();
+        // connection.connect();
         connection.query('UPDATE wallet_balance SET wallet_balance=wallet_balance + (Select amount_to_referrer from coupon WHERE coupon_code = \'' +coupon+ '\' ) from refer WHERE coupon_code_id = (Select id WHERE coupon_code = \''+coupon+"\');",async (err, rows, fields) => {
         if (err){
             console.log(err);
@@ -220,7 +182,7 @@ exports.applyCouponFromMysql = (coupon) =>{
 exports.getReferralDataFromMysql = (email) =>{
     return new Promise((resolve,reject)=>{
         console.log("mysql email = ",email);
-        connection.connect();
+        // connection.connect();
         connection.query('SELECT r.walletBalance, r.referralEarnings, c.coupon_code FROM refer r INNER JOIN coupon c ON c.id=r.coupon_code_id WHERE r.student_email = \''+email+"\';",async (err, rows, fields) => {
         if (err){
             console.log(err);
