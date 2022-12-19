@@ -51,7 +51,7 @@ const connection = mysql.createPool({
 
 
 getOrAddStudentFromMysql = (email) => {
-    connection.connect();
+    // connection.connect();
     connection.query('SELECT * from user WHERE email = \''+email+"\';", async (err, rows, fields) => {
     if (err) throw err
 
@@ -167,7 +167,7 @@ exports.getStudentFromMysql = (email) => {
 exports.getStudentReferralsFromMysqlCoupon = (code) => {
     return new Promise((resolve,reject)=>{
         console.log("mysql coupon_code = ",code);
-        connection.connect();
+        // connection.connect();
         connection.query('SELECT * from paymentinfo WHERE coupon_code = \''+code+"\';",async (err, rows, fields) => {
         if (err){
             console.log(err);
@@ -201,7 +201,7 @@ exports.getStudentReferralsFromMysqlCoupon = (code) => {
 exports.applyCouponFromMysql = (coupon) =>{
     return new Promise((resolve,reject)=>{
         console.log("mysql coupon = ",coupon);
-        connection.connect();
+        // connection.connect();
         connection.query('UPDATE wallet_balance SET wallet_balance=wallet_balance + (Select amount_to_referrer from coupon WHERE coupon_code = \'' +coupon+ '\' ) from refer WHERE coupon_code_id = (Select id WHERE coupon_code = \''+coupon+"\');",async (err, rows, fields) => {
         if (err){
             console.log(err);
@@ -220,7 +220,7 @@ exports.applyCouponFromMysql = (coupon) =>{
 exports.getReferralDataFromMysql = (email) =>{
     return new Promise((resolve,reject)=>{
         console.log("mysql email = ",email);
-        connection.connect();
+        // connection.connect();
         connection.query('SELECT r.walletBalance, r.referralEarnings, c.coupon_code FROM refer r INNER JOIN coupon c ON c.id=r.coupon_code_id WHERE r.student_email = \''+email+"\';",async (err, rows, fields) => {
         if (err){
             console.log(err);
