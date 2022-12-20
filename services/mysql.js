@@ -206,7 +206,7 @@ exports.getReferralDataFromMysql = (email) =>{
 
 exports.searchLoginUserFromMysql = (email,password) => {
     return new Promise((resolve,reject)=>{
-        console.log("mysql email = ",email);
+        console.log("mysql email = ",email, " password = ",password);
         // connection.connect();
         user_connection.query('SELECT * FROM user where email = \''+email+"\' and password = \'"+password+"\';",async (err, rows, fields) => {
         if (err){
