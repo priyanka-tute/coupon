@@ -12,6 +12,13 @@ const connection = mysql.createPool({
 });
 
 
+const user_connection = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_USER_PASSWORD,
+    database: process.env.DB_NAME_USER
+  });
+
 getOrAddStudentFromMysql = (email) => {
     // connection.connect();
     connection.query('SELECT * from user WHERE email = \''+email+"\';", async (err, rows, fields) => {
@@ -191,6 +198,31 @@ exports.getReferralDataFromMysql = (email) =>{
         else
         {
             resolve(rows);
+        }
+    });
+});
+}
+
+
+exports.searchLoginUserFromMysql = (email,password) => {
+    return new Promise((resolve,reject)=>{
+        console.log("mysql email = ",email);
+        // connection.connect();
+        user_connection.query('SELECT * FROM user where email = \''+email+"\' and password = \'"+password+"\';",async (err, rows, fields) => {
+        if (err){
+            console.log(err);
+            reject(err);
+        }
+        else
+        {
+            if(rows.length>0)
+            {
+                resolve({email:rows[0].email});
+            }
+            else
+            {
+                reject("Invalid");
+            }
         }
     });
 });

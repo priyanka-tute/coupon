@@ -22,6 +22,7 @@ app.set("view engine", "ejs");
 // app.use(logger("dev"));
 app.use(express.json());
 app.use(require("./routers/coupon"));
+app.use(require("./routers/auth"));
 // app.use(
 //   express.json({
 //     type: ["application/json", "text/plain"],

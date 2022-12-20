@@ -7,8 +7,9 @@ const { applyCoupon, getStudentReferrals, getStudentReferralsFromBackupId } = re
 const { getStudent, getStudentFromEmail, getStudentorCreateFromEmail } = require("../services/student");
 const { generateUniqueCode, generate } = require("./coupon");
 
-exports.dashboard = async (req,res) => {
-    const student_id = req.query.student_id; //here student_id is email
+exports.dashboard = async (req,res,student_id) => {
+    if(student_id==undefined || student_id==null)
+    student_id = req.query.student_id; //here student_id is email
     console.log("student_id = ",student_id);
     const student = await getStudentorCreateFromEmail(student_id);
     console.log("student = ",student);
