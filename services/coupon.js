@@ -21,7 +21,7 @@ exports.getOrCreateStudentCoupon = (student_id,coupon) => {
       if(data.length==0)
       {
         console.log("in if..");
-        Coupon.findOneAndUpdate({email: student_id},{coupon:coupon[0]},
+        Coupon.findOneAndUpdate({email: student_id},{code:coupon[0]},
         {
         new: true,   // return new doc if one is upserted
         upsert: true, // insert the document if it does not exist
