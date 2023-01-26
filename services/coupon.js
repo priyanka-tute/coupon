@@ -28,6 +28,7 @@ exports.getOrCreateStudentCoupon = (student_id,coupon) => {
         }).exec().then((data2)=>{
           resolve(data2)
         }).catch((err2)=>{
+          console.log("error in coupon service = ",err2);
           reject(err2)
         })
       }
