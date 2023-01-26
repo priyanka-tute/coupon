@@ -17,7 +17,7 @@ exports.dashboard = async (req,res,student_id) => {
 console.log("coupon doc = ",coupon);
 coupon = coupon[0];
 console.log("coupon doc = ",coupon);
-    // const student = await getStudentFromMysql(student_id);
+    const student = await getStudentFromMysql(student_id);
     const student_referrals = await getStudentReferralsFromMysqlCoupon(coupon.code);
     // const student_refer = await getReferralDataFromMysql(student_id);
     // console.log("student = ",student);
