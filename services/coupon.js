@@ -15,13 +15,13 @@ exports.getOrCreateStudentCoupon = (student_id,coupon) => {
   
   console.log("coupon = ",coupon[0]);
    const rec =  Coupon.find(
-        { student: student_id}).exec();
+        { email: student_id}).exec();
     rec.then((data)=>{
      console.log(data,data.length)
       if(data.length==0)
       {
         console.log("in if..");
-        Coupon.findOneAndUpdate({student: student_id},coupon,
+        Coupon.findOneAndUpdate({email: student_id},coupon,
         {
         new: true,   // return new doc if one is upserted
         upsert: true, // insert the document if it does not exist

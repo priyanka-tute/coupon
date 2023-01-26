@@ -6,7 +6,7 @@ exports.login = (req,res) => {
     const password = req.body.password;
 
     searchLoginUserFromMysql(email,password).then((data)=>{
-        dashboard(req,res,data.email);
+        dashboard(req,res,email);
     }).catch((err)=>{
         res.send({"success":"false"});
     })
