@@ -21,11 +21,11 @@ console.log("coupon doc = ",coupon);
     const student_referrals = await getStudentReferralsFromMysqlCoupon(coupon.code);
     // const student_refer = await getReferralDataFromMysql(student_id);
     // console.log("student = ",student);
-    console.log("student_refer = ",student_referrals);
+    // console.log("student_refer = ",student_referrals);
 
     let dashboard = {};
     dashboard = JSON.parse(JSON.stringify(student));
-    console.log(student_referrals);
+    // console.log(student_referrals);
     dashboard.code = coupon.code;
     // dashboard.enrollers = student_referrals;
     dashboard = {...dashboard, ...student_referrals};
