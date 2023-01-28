@@ -98,7 +98,7 @@ exports.getStudentFromMysql = (email) => {
     }
     else
     {
-        console.log("rows = ",rows);
+        // console.log("rows = ",rows);
         let student = {};
         student.studentName = rows[0].name;
         student.email = rows[0].email;
