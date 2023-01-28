@@ -14,7 +14,7 @@ exports.dashboard = async (req,res,student_id) => {
     // const student = await getStudentorCreateFromEmail(student_id);
     // console.log("student = ",student);
     let coupon = await getOrCreateStudentCoupon(student_id,generate());
-console.log("coupon doc = ",coupon);
+// console.log("coupon doc = ",coupon);
 coupon = coupon[0];
 console.log("coupon doc = ",coupon);
     const student = await getStudentFromMysql(student_id);
