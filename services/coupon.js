@@ -21,11 +21,13 @@ exports.getOrCreateStudentCoupon = (student_id,coupon) => {
       if(data.length==0)
       {
         console.log("in if..");
-        Coupon.findOneAndUpdate({email: student_id},{code:coupon[0]},
-        {
-        new: true,   // return new doc if one is upserted
-        upsert: true, // insert the document if it does not exist
-        }).exec().then((data2)=>{
+        // Coupon.findOneAndUpdate({email: student_id},{code:coupon[0]},
+        // {
+        // new: true,   // return new doc if one is upserted
+        // upsert: true, // insert the document if it does not exist
+        // }).exec()
+        const c = new Coupon({email:email,code:coupon[0]}).save()
+        .then((data2)=>{
           resolve(data2)
         }).catch((err2)=>{
           console.log("error in coupon service = ",err2);
