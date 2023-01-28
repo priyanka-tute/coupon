@@ -144,6 +144,7 @@ exports.getStudentReferralsFromMysqlCoupon = (code) => {
         }
         else
         {
+            let totalEarnings = 0;
             let students = [];
             for(let i=0;i<rows.length;i++)
             {
@@ -157,11 +158,12 @@ exports.getStudentReferralsFromMysqlCoupon = (code) => {
                 const date = new Date(rows[i].date_time);
                 student.date_time = date.getDate() + "-" +date.getMonth()+"-"+date.getFullYear() ;
                 student.referralAmount = "200";
+                totalEarnings+=Number(student.referralAmount);
                 // await getCourses(student_id);
                 console.log(student);
                 students.push(student);
             }
-            resolve(students);
+            resolve({referralEarnings:totalEarnings,enrollers:students});
         }
     });
 });
