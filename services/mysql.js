@@ -108,7 +108,7 @@ exports.getStudentFromMysql = (email) => {
         const date = new Date(rows[0].date_time);
         student.date_time = date.getDate() + "-" +date.getMonth()+"-"+date.getFullYear() ;
 // await getCourses(student_id);
-        console.log(student);
+        // console.log(student);
         resolve(student);
         // let courseList=[];
         // for(let i =0;i<student.courses.length;i++)
@@ -160,7 +160,7 @@ exports.getStudentReferralsFromMysqlCoupon = (code) => {
                 student.referralAmount = "200";
                 totalEarnings+=Number(student.referralAmount);
                 // await getCourses(student_id);
-                console.log(student);
+                // console.log(student);
                 students.push(student);
             }
             resolve({referralEarnings:totalEarnings,enrollers:students});
