@@ -27,11 +27,14 @@ console.log("coupon doc = ",coupon);
     dashboard = JSON.parse(JSON.stringify(student));
     // console.log(student_referrals);
     dashboard.code = coupon.code;
+    dashboard.walletBalance = coupon.walletBalance;
     // dashboard.enrollers = student_referrals;
     dashboard = {...dashboard, ...student_referrals};
     // dashboard.walletBalance =student_refer[0].walletBalance;
     // dashboard.referralEarnings = student_refer[0].referralEarnings;
     // dashboard.code = student_refer[0].coupon_code;
+    if(dashboard.walletBalance==undefined)
+        dashboard.walletBalance = dashboard.referralEarnings;
     dashboard.password=undefined;
     // const courses = student.courses;
     // console.log("courses = ",courses);

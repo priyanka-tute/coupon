@@ -11,7 +11,8 @@ const CouponSchema = new Schema({
  code: {type:String,unique:true},
  dateOfCreation: Date,
  amountToReferrer: {type:Number,default:200},
- amountToUser:{type:Number,default:200}
+ amountToUser:{type:Number,default:200},
+ walletBalance:Number
 });
 
 const Coupon = mongoose.model('Coupon',CouponSchema);
